@@ -10,17 +10,20 @@ services:
     build: ./frontend
     depends_on: 
       - api
-
-
-  nginx:
-    build: ./nginx
+    stdin_open: true
+    tty: true
     ports:
-      - 80:80
-    restart: always
-    depends_on:
-      - api
-      - client
-  
+      - "3000:3000"
+
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: appdb
+
 
 volumes: 
   logs:
