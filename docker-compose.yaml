@@ -10,6 +10,8 @@ services:
     build: ./backend
     volumes: 
       - logs:/app/logs
+    depends_on:
+      - mongodb
 
 
   client:
